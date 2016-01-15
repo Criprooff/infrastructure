@@ -18,6 +18,16 @@ resource "digitalocean_droplet" "serf" {
 	destination = "/etc/init/serf.conf"
   }
 
+  provisioner "file" {
+	connection {
+	  user = "root"
+	}
+
+	source = "files/join_serf.sh"
+	destination = "/opt/join_serf.sh"
+  }
+
+
   provisioner "remote-exec" {
 	connection {
 	  user = "root"
@@ -35,4 +45,22 @@ resource "digitalocean_droplet" "serf" {
   }
 
   count = "${var.num_nodes}"
+}
+
+
+resource "null_resource" "init_serf" {
+  count = "${var.num_nodes}"
+
+  depends_on = [ "digitalocean_droplet.serf" ]
+
+  provisioner "remote-exec" {
+	connection {
+	  user = "root"
+	  host = "${digitalocean_droplet.serf.0.ipv4_address}"
+	}
+
+	inline = [
+	  "bash /opt/join_serf.sh ${join(" ", digitalocean_droplet.serf.*.ipv4_address)}"
+	]
+  }
 }
