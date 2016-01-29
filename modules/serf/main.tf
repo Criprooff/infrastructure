@@ -1,14 +1,22 @@
 variable "num_nodes" { }
 variable "region" { }
-variable "image" { }
-variable "size" { }
+
+variable "image" {
+	default = "ubuntu-x86_64"
+}
+variable "size" {
+	default = "1GB"
+}
+variable "ssh_keys" {
+	default = ""
+}
 
 resource "digitalocean_droplet" "serf" {
   image = "${var.image}"
   name = "serf.${count.index+1}"
   region = "${var.region}"
   size = "${var.size}"
-  ssh_keys = ["${var.ssh_key_id}"]
+  ssh_keys = ["${var.ssh_keys}"]
 
   provisioner "file" {
 	connection {
@@ -50,8 +58,6 @@ resource "digitalocean_droplet" "serf" {
 
 
 resource "null_resource" "init_serf" {
-  count = "${var.num_nodes}"
-
   depends_on = [ "digitalocean_droplet.serf" ]
 
   provisioner "remote-exec" {
