@@ -27,7 +27,6 @@ resource "digitalocean_droplet" "serf" {
 	destination = "/opt/join_serf.sh"
   }
 
-
   provisioner "remote-exec" {
 	connection {
 	  user = "root"
@@ -46,7 +45,6 @@ resource "digitalocean_droplet" "serf" {
 
   count = "${var.num_nodes}"
 }
-
 
 resource "null_resource" "init_serf" {
   count = "${var.num_nodes}"
