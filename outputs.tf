@@ -1,3 +1,3 @@
-output "ip_addresses" {
-  value = "${join(", ", digitalocean_droplet.serf.*.ipv4_address)}"
+output "serf_cluster" {
+  value = "${module.serf.ip_addresses}"
 }
