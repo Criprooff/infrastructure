@@ -2,7 +2,7 @@ variable "num_nodes" { }
 variable "region" { }
 
 variable "image" {
-	default = "ubuntu-x86_64"
+	default = "ubuntu-14-04-x64"
 }
 variable "size" {
 	default = "1GB"
