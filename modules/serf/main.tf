@@ -23,7 +23,7 @@ resource "digitalocean_droplet" "serf" {
 	  user = "root"
 	}
 
-	source = "files/serf.conf"
+	source = "modules/serf/files/serf.conf"
 	destination = "/etc/init/serf.conf"
   }
 
@@ -32,7 +32,7 @@ resource "digitalocean_droplet" "serf" {
 	  user = "root"
 	}
 
-	source = "files/join_serf.sh"
+	source = "modules/serf/files/join_serf.sh"
 	destination = "/opt/join_serf.sh"
   }
 

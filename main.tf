@@ -3,8 +3,8 @@ provider "digitalocean" {
 }
 
 module "serf" {
-	source = "./modules/serf"
-	region = "nyc3"
-	num_nodes = 3
+  source = "./modules/serf"
+  region = "nyc3"
+  num_nodes = 3
+  ssh_keys = "${var.ssh_key_id}"
 }
-
