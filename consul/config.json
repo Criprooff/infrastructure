@@ -1,0 +1,10 @@
+{
+  "datacenter": "criproff",
+  "data_dir": "/opt/apps/consul/data",
+  "server": true,
+  "addresses": {
+    "http": "0.0.0.0"
+  },
+  "acl_datacenter": "criproff",
+  "acl_default_policy": "allow"
+}
